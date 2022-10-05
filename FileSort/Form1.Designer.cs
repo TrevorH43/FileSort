@@ -42,6 +42,7 @@
             this.bubbleSortRadioButton = new System.Windows.Forms.RadioButton();
             this.clearButton = new System.Windows.Forms.Button();
             this.sortedListBox = new System.Windows.Forms.ListBox();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -100,6 +101,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.clearButton);
             this.panel1.Controls.Add(this.sortFileButton);
             this.panel1.Controls.Add(this.selectionSortRadioButton);
             this.panel1.Controls.Add(this.insertSortRadioButton);
@@ -133,6 +135,7 @@
             this.selectionSortRadioButton.TabStop = true;
             this.selectionSortRadioButton.Text = "Selection";
             this.selectionSortRadioButton.UseVisualStyleBackColor = true;
+            this.selectionSortRadioButton.CheckedChanged += new System.EventHandler(this.selectionSortRadioButton_CheckedChanged);
             // 
             // insertSortRadioButton
             // 
@@ -144,6 +147,7 @@
             this.insertSortRadioButton.TabStop = true;
             this.insertSortRadioButton.Text = "Insertion";
             this.insertSortRadioButton.UseVisualStyleBackColor = true;
+            this.insertSortRadioButton.CheckedChanged += new System.EventHandler(this.insertSortRadioButton_CheckedChanged);
             // 
             // bubbleSortRadioButton
             // 
@@ -155,10 +159,11 @@
             this.bubbleSortRadioButton.TabStop = true;
             this.bubbleSortRadioButton.Text = "Bubble";
             this.bubbleSortRadioButton.UseVisualStyleBackColor = true;
+            this.bubbleSortRadioButton.CheckedChanged += new System.EventHandler(this.bubbleSortRadioButton_CheckedChanged);
             // 
             // clearButton
             // 
-            this.clearButton.Location = new System.Drawing.Point(401, 416);
+            this.clearButton.Location = new System.Drawing.Point(187, 168);
             this.clearButton.Name = "clearButton";
             this.clearButton.Size = new System.Drawing.Size(75, 23);
             this.clearButton.TabIndex = 13;
@@ -174,14 +179,16 @@
             this.sortedListBox.Name = "sortedListBox";
             this.sortedListBox.Size = new System.Drawing.Size(408, 184);
             this.sortedListBox.TabIndex = 10;
-            this.sortedListBox.SelectedIndexChanged += new System.EventHandler(this.sortedListBox_SelectedIndexChanged);
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
             // 
             // FileSortForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(658, 489);
-            this.Controls.Add(this.clearButton);
             this.Controls.Add(this.sortedListBox);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label4);
@@ -210,5 +217,6 @@
         private RadioButton bubbleSortRadioButton;
         private ListBox sortedListBox;
         private Button clearButton;
+        private OpenFileDialog openFileDialog1;
     }
 }

@@ -1,11 +1,14 @@
 using System.Security.Cryptography.X509Certificates;
 using System.IO;
 using System.Text;
+using static System.Windows.Forms.LinkLabel;
 
 namespace FileSort
 {
     public partial class FileSortForm : Form
     {
+
+        string[] lines;
         public FileSortForm()
         {
             InitializeComponent();
@@ -18,6 +21,10 @@ namespace FileSort
             {
                 fileNameTextBox.Text = fdlg.FileName;
                 fileNameTextBox.Text = fdlg.SafeFileName;
+                foreach (string line in lines)
+                {
+                    sortedListBox.Items.Add(line);
+                }
             }
         }
 
@@ -42,44 +49,53 @@ namespace FileSort
                 n++;
             }
         }
-        public static void InsertionSort(int[] input)
+
+        private void selectionSortRadioButton_CheckedChanged(object sender, EventArgs e)
         {
-
-            for (int i = 0; i < input.Count(); i++)
+            SelectionSort(lines);
+            foreach (string line in lines)
             {
-                var item = input[i];
-                var currentIndex = i;
-
-                while (currentIndex > 0 && input[currentIndex - 1] > item)
-                {
-                    input[currentIndex] = input[currentIndex - 1];
-                    currentIndex--;
-                }
-
-                input[currentIndex] = item;
+                sortedListBox.Items.Add(line);
             }
         }
-        public static void SelectionSort(int[] input)
+
+        private void SelectionSort(string[] sortArray)
         {
-            for (var i = 0; i < input.Length; i++)
+            int minIndex;
+
+            for (int i = 0; i < sortArray.Length - 1; i++)
             {
-                var min = i;
-                for (var j = i + 1; j < input.Length; j++)
+                minIndex = i;
+                for (int j = i + 1; j < sortArray.Length; j++)
                 {
-                    if (input[min] > input[j])
+                    if (sortArray[j].CompareTo(sortArray[minIndex]) > 0)
                     {
-                        min = j;
+                        minIndex = j;
                     }
                 }
-
-                if (min != i)
+                if (minIndex != i)
                 {
-                    var lowerValue = input[min];
-                    input[min] = input[i];
-                    input[i] = lowerValue;
+                    Swap(ref sortArray[i], ref sortArray[minIndex]);
                 }
             }
         }
+        private void Swap(ref string value1, ref string value2)
+        {
+            string temp;
+            temp = value1;
+            value1 = value2;
+            value2 = temp;
+        }
+
+        private void bubbleSortRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            BubbleSort(lines);
+            foreach (string line in lines)
+            {
+                sortedListBox.Items.Add(line);
+            }
+        }
+
         public static void BubbleSort(int[] input)
         {
             var itemMoved = false;
@@ -99,14 +115,34 @@ namespace FileSort
             } while (itemMoved);
         }
 
+        private void insertSortRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            InsertionSort(lines);
+            foreach (string line in lines)
+            {
+                sortedListBox.Items.Add(line);
+            }
+        }
+        public static void InsertionSort(int[] input)
+        {
+
+            for (int i = 0; i < input.Count(); i++)
+            {
+                var item = input[i];
+                var currentIndex = i;
+
+                while (currentIndex > 0 && input[currentIndex - 1] > item)
+                {
+                    input[currentIndex] = input[currentIndex - 1];
+                    currentIndex--;
+                }
+
+                input[currentIndex] = item;
+            }
+        }
         private void clearButton_Click(object sender, EventArgs e)
         {
             sortedListBox.Items.Clear();
-        }
-
-        private void sortedListBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }
